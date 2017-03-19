@@ -18,6 +18,10 @@ def not_all_equal(*args):
     return not all_equal(*args)
 
 
+def all_comp(op):
+    return lambda *args: all(op(x, y) for x, y in zip(args[:-1], args[1:]))
+
+
 ENV_DEFAULT = op_map = {
     '=': all_equal,
     '!=': not_all_equal,
@@ -25,15 +29,15 @@ ENV_DEFAULT = op_map = {
     '+': apply_reduce(op.add),
     '/': apply_reduce(op.div),
     '-': apply_reduce(op.sub),
-    '>': op.gt,
-    '<': op.lt,
-    '>=': op.ge,
-    '<=': op.le,
+    '>': all_comp(op.gt),
+    '<': all_comp(op.lt),
+    '>=': all_comp(op.ge),
+    '<=': all_comp(op.le),
     'abs': op.abs,
     'and': apply_fn(all),
     'or': apply_fn(any),
     'not': op.not_,
-    'contains': op.contains}
+    'in?': op.contains}
 
 
 def _parser(env):
