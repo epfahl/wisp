@@ -37,7 +37,8 @@ ENV_DEFAULT = op_map = {
     'and': apply_fn(all),
     'or': apply_fn(any),
     'not': op.not_,
-    'in?': op.contains}
+    'in': lambda x, y: op.contains(y, x),
+    'list': apply_fn(list)}
 
 
 def _parser(env):
