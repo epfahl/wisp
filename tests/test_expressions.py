@@ -6,7 +6,7 @@ EXPRESSIONS = [
     ("(+ 1 2 3)", 6),
     ("(- 1 2 3)", -4),
     ("(* 1 2 3)", 6),
-    ("(/ 3.0, 2.0)", 1.5),
+    ("(/ 3.0 2.0)", 1.5),
     ("(abs -1)", 1),
 
     ("(> 3 2 1)", True),
@@ -37,9 +37,10 @@ EXPRESSIONS = [
     ("(and (>= 3 2 2) (< 1 2))", True),
     ("(if (> 2 1) (abs -1) (+ 1 1))", 1),
     ("(if (> 1 2) 0 (+ 1 1))", 2),
+
 ]
 
 
-def test_expressions(exprs):
+def test_expressions():
     for e, r in EXPRESSIONS:
         assert wisp.eval(e) == r

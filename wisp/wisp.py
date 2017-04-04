@@ -1,3 +1,11 @@
+"""Main access module for wisp.
+
+Todo
+----
+* Allow evaluation of multiple disjoint s-expressions; return a list of
+  results.
+"""
+
 import operator as op
 import pyparsing as pp
 
@@ -14,27 +22,15 @@ def apply_reduce(fn):
     return lambda *args: reduce(fn, args)
 
 
-def all_equal(*args):
-    """Return True if all the args are equal.
+def all_comp(boolop, boolred=all):
+    """Return a function that returns True if the boolean reduction (all or
+    any) of all adjacent pairs satisfy the boolean operator.
     """
-    return args.count(args[0]) == len(args)
-
-
-def not_all_equal(*args):
-    """Return True if not all the args are equal.
-    """
-    return not all_equal(*args)
-
-
-def all_comp(op, proc=all):
-    """Return a function that returns True if all adjacent pairs satisfy the
-    boolean operator.
-
-    Notes
-    -----
-    * Replace all_equal and not_all_equal with this?
-    """
-    return lambda *args: proc(op(x, y) for x, y in zip(args[:-1], args[1:]))
+    if boolred.__name__ not in ('any', 'all'):
+        raise ValueError(
+            "boolean reduction {} not recognized".format(boolred.__name__))
+    return lambda *args: boolred(
+        boolop(x, y) for x, y in zip(args[:-1], args[1:]))
 
 
 ENV_DEFAULT = op_map = {
@@ -43,6 +39,7 @@ ENV_DEFAULT = op_map = {
     '/': apply_reduce(op.div),
     '-': apply_reduce(op.sub),
     '=': all_comp(op.eq),
+    'abs': abs,
     '!=': all_comp(lambda x, y: not op.eq(x, y), any),
     '>': all_comp(op.gt),
     '<': all_comp(op.lt),
@@ -80,6 +77,8 @@ def parse(expr, env):
 
 
 def evaluate(x):
+    """Evaluate the nested list of resolved symbols.
+    """
     if isinstance(x, list):
         if callable(x[0]):
             return x[0](*map(evaluate, x[1:]))
@@ -92,4 +91,13 @@ def evaluate(x):
 
 
 def eval(expr, env=ENV_DEFAULT):
+    """Evaluate the given s-expression against the given environment.
+
+    Examples
+    --------
+    >>> eval('(+ 1 1)')
+    2
+    >>> eval('(if (> 2 1) (abs -1) (+ 1 1))')
+    1
+    """
     return evaluate(parse(expr, env))
