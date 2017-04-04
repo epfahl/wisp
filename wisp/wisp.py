@@ -3,37 +3,52 @@ import pyparsing as pp
 
 
 def apply_fn(fn):
+    """Return a function that applies fn to *args.
+    """
     return lambda *args: fn(args)
 
 
 def apply_reduce(fn):
+    """Return a function that reduces *args with the given fn.
+    """
     return lambda *args: reduce(fn, args)
 
 
 def all_equal(*args):
+    """Return True if all the args are equal.
+    """
     return args.count(args[0]) == len(args)
 
 
 def not_all_equal(*args):
+    """Return True if not all the args are equal.
+    """
     return not all_equal(*args)
 
 
-def all_comp(op):
-    return lambda *args: all(op(x, y) for x, y in zip(args[:-1], args[1:]))
+def all_comp(op, proc=all):
+    """Return a function that returns True if all adjacent pairs satisfy the
+    boolean operator.
+
+    Notes
+    -----
+    * Replace all_equal and not_all_equal with this?
+    """
+    return lambda *args: proc(op(x, y) for x, y in zip(args[:-1], args[1:]))
 
 
 ENV_DEFAULT = op_map = {
-    '=': all_equal,
-    '!=': not_all_equal,
     '*': apply_reduce(op.mul),
     '+': apply_reduce(op.add),
     '/': apply_reduce(op.div),
     '-': apply_reduce(op.sub),
+    'abs': op.abs,
+    '=': all_comp(op.eq),
+    '!=': all_comp(lambda x, y: not op.eq(x, y), any),
     '>': all_comp(op.gt),
     '<': all_comp(op.lt),
     '>=': all_comp(op.ge),
     '<=': all_comp(op.le),
-    'abs': op.abs,
     'and': apply_fn(all),
     'or': apply_fn(any),
     'not': op.not_,
