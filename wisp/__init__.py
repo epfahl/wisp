@@ -1,1 +1,1 @@
-import wisp
+from wisp import eval

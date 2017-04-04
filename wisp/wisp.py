@@ -42,7 +42,6 @@ ENV_DEFAULT = op_map = {
     '+': apply_reduce(op.add),
     '/': apply_reduce(op.div),
     '-': apply_reduce(op.sub),
-    'abs': op.abs,
     '=': all_comp(op.eq),
     '!=': all_comp(lambda x, y: not op.eq(x, y), any),
     '>': all_comp(op.gt),
@@ -53,7 +52,11 @@ ENV_DEFAULT = op_map = {
     'or': apply_fn(any),
     'not': op.not_,
     'in': lambda x, y: op.contains(y, x),
-    'list': apply_fn(list)}
+    'list': apply_fn(list),
+    'first': lambda x: x[0],
+    'rest': lambda x: x[1:],
+    'last': lambda x: x[-1]
+}
 
 
 def _parser(env):
@@ -88,5 +91,5 @@ def evaluate(x):
         return x
 
 
-def run(expr, env=ENV_DEFAULT):
+def eval(expr, env=ENV_DEFAULT):
     return evaluate(parse(expr, env))
