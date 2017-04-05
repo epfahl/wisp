@@ -15,9 +15,9 @@ Too simple?  Here's something a little more involved:
 ```python
 >>> expr = """
 (if 
-	(> (first (list 3 2 1)) 1)
-	(* (- 3 1) 2)
-	false)
+  (> (first (list 3 2 1)) 1)
+  (* (- 3 1) 2)
+  false)
 """
 >>> wisp.eval(expr)
 "4"
@@ -30,7 +30,7 @@ The only special form (i.e., a symbol that requires special handling) is `if`, w
 
 ## What's the catch?
 
-You might have already guessed...  There's no `define` or `lambda` or `let`.  This means that there's no way to modify the environment after an expression has been parsed and evaluated.  So, no bindings or functions defined at runtime.  
+You might have already guessed...  There's no `define` or `lambda` or `let`.  This means that there's no way to modify the environment after an expression has been parsed and evaluated.  Runtime bindings or function definitions are not allowed.  
 
 At the time an expression is parsed, each symbol is replaced with either a numeric literal, a boolean literal ('true' -> True, 'false' -> False), a value from the environment, a null literal ('null' -> None), or a string literal for symbols that couldn't be parsed otherwise.  A parsed expression is a nesting of Python lists, which is then evaluated recursively.
 
