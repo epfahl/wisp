@@ -4,6 +4,10 @@ Todo
 ----
 * Allow evaluation of multiple disjoint s-expressions; return a list of
   results.
+* Add null? function ('?' supported?).
+* Add min/max for lists.
+* Add round for numbers.
+* Add list append (cons/conj).
 """
 
 import operator as op
