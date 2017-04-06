@@ -7,4 +7,4 @@ setup(
     url='https://github.com/epfahl/wisp',
     author='Eric Pfahl',
     packages=find_packages(),
-    install_requires=['pyparsing'])
+    install_requires=['pyparsing', 'toolz'])

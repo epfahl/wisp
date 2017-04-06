@@ -8,6 +8,9 @@ EXPRESSIONS = [
     ("(* 1 2 3)", 6),
     ("(/ 3.0 2.0)", 1.5),
     ("(abs -1)", 1),
+    ("(min 2 1 3)", 1),
+    ("(max 2 1 3)", 3),
+    ("(pow 3 2)", 9),
 
     ("(> 3 2 1)", True),
     ("(< 3 2 1)", False),
@@ -26,6 +29,7 @@ EXPRESSIONS = [
     ("(or false false)", False),
     ("(not true)", False),
     ("(not false)", True),
+    # ("(not null)", True),
 
     ("(list 1 2 3)", [1, 2, 3]),
     ("(first (list 1 2 3))", 1),
