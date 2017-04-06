@@ -41,7 +41,7 @@ For an awesome tutorial on how to build a more complete Lisp/Schema interpreter 
 
 Two reasons:
 
-1) Lisp is data.  That is, Lisp code is just a string that directly represents the abstract syntax tree.  Suppose you have an API with a configuration that requires the specification of abstract boolean expressions.  With Lisp, serialization and sharing of such expressions is trivial.  This would be awkward in Python. 
+1) Lisp is data.  That is, Lisp code is just a string that directly represents the abstract syntax tree.  Suppose you have an API with a configuration that requires the specification of abstract boolean expressions.  Serialization and sharing of such expressions is trivial with Lisp, but would be awkward with Python. 
 
 2) Safety.  By disallowing a dynamic runtime environment, it is not possible to define and execute arbitrary code.  Consumer-specified functions must be defined in the environment before an expression is evaluated.
 
