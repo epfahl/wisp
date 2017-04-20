@@ -34,7 +34,7 @@ You might have already guessed...  There's no `define` or `lambda` or `let`.  Th
 
 At the time an expression is parsed, each symbol is replaced with either a numeric literal, a boolean literal ('true' -> True, 'false' -> False), a value from the environment, a null literal ('null' -> None), or a string literal for symbols that couldn't be parsed otherwise.  A parsed expression is a nesting of Python lists, which is then evaluated recursively.
 
-For an awesome tutorial on how to build a more complete Lisp/Schema interpreter in Python, see [Peter Norvig's page](http://norvig.com/lispy.html).  If you want to experience the full power of (Clojure-flavored) Lisp from the comfort of your Python environment, take [hylang](http://docs.hylang.org/) for a spin.     
+For an awesome tutorial on how to build a more complete Lisp/Scheme interpreter in Python, see [Peter Norvig's page](http://norvig.com/lispy.html).  If you want to experience the full power of (Clojure-flavored) Lisp from the comfort of your Python environment, take [hylang](http://docs.hylang.org/) for a spin.     
 
 
 ## Why was this built?
