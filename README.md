@@ -41,7 +41,7 @@ For an awesome tutorial on how to build a more complete Lisp/Scheme interpreter 
 
 Two reasons:
 
-1) Lisp is data.  That is, Lisp code is just a string that directly represents the abstract syntax tree.  Suppose you have an API whose configuration requires the specification of abstract expressions.  For example, one might want to declaratively express the trigger conditions for a finite state machine.  Serialization and sharing of such expressions is trivial with Lisp, but would be awkward with Python. 
+1) Lisp is data.  That is, Lisp code is just a string that directly represents the abstract syntax tree.  Suppose you have an API whose configuration requires the specification of abstract expressions.  For example, one might want to declaratively express the trigger conditions for a finite state machine (e.g., [Auta](https://github.com/epfahl/auta)).  Serialization and sharing of such expressions is trivial with Lisp, but would be awkward with Python. 
 
 2) Safety.  Consumer-specified functions must be defined in the environment before an expression is evaluated.  This means that the consumer can prevent execution of arbitrary code.
 
